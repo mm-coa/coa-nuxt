@@ -1,1 +1,1 @@
-# mm-site-nuxt-core
+# site-nuxt-core
