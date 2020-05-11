@@ -1,6 +1,6 @@
 {
   "name": "site-nuxt-core",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "license": "MIT",
   "scripts": {
     "dev": "tsc-watch",

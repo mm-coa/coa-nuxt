@@ -60,7 +60,7 @@ export class CgiBin {
       data = { code: 500, message: '网络异常' }
     }
 
-    const { code = 400, mark = 0, body = null, message = '数据异常' } = data
+    const { code = 400, mark = 0, body = null, message = '' } = data
 
     // 服务端往客户端存储的数据
     if (data.state) {

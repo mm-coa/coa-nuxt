@@ -1,13 +1,9 @@
-import { extend, snakeCase } from 'lodash'
+import { snakeCase } from 'lodash'
 import { time } from '..'
-
-const Config = {
-  prefix: 'site',
-  ms: time.oneMonth
-}
+import config from '../config'
 
 function id2key (id: string) {
-  return Config.prefix + '_' + snakeCase(id)
+  return config.name + '_' + snakeCase(id)
 }
 
 export default new class {
@@ -29,7 +25,7 @@ export default new class {
       }
     }
 
-    set (id: string, value: any, ms = Config.ms) {
+    set (id: string, value: any, ms = time.oneMonth) {
       const key = id2key(id)
       const data = [Date.now() + ms, value]
       const dataString = JSON.stringify(data)
@@ -62,7 +58,7 @@ export default new class {
       }
     }
 
-    set (id: string, value: any, ms = Config.ms) {
+    set (id: string, value: any, ms = time.oneWeek) {
       const key = id2key(id)
       const data = [Date.now() + ms, value]
       const dataString = JSON.stringify(data)
@@ -77,10 +73,6 @@ export default new class {
     clear () {
       sessionStorage.clear()
     }
-  }
-
-  setConfig (config: Partial<typeof Config>) {
-    extend(Config, config)
   }
 
 }
