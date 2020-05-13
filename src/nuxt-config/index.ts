@@ -2,19 +2,17 @@ import { Configuration } from '@nuxt/types'
 import { defaultsDeep } from 'lodash'
 
 const toSnake = (str: string) => str
-  .replace(/([A-Z])/g, '_$1')
-  .replace(/_([A-Z])_([A-Z])_/g, '$1$2')
-  .replace(/_([A-Z])_/g, '$1')
-  .replace(/([\/-])_/g, '$1')
+  .replace(/[-\/]@pages/g, '')
+  .replace(/([^-:\/A-Z])([A-Z])/g, '$1_$2')
   .toLowerCase()
 
 const extendRoutes = (routes: any[]) => {
   const new_routes = [] as any[]
   routes.forEach(v => {
-    if (v.name.indexOf('-@pages') > -1) {
-      v.name = toSnake(v.name.replace(/-@pages/g, ''))
-      v.path = toSnake(v.path.replace(/\/@pages/g, ''))
-      v.chunkName = toSnake(v.chunkName.replace(/\/@pages/g, ''))
+    if (v.name.indexOf('@') < 0 || v.name.indexOf('-@pages') > -1) {
+      v.name = toSnake(v.name)
+      v.path = toSnake(v.path)
+      v.chunkName = toSnake(v.chunkName)
       new_routes.push(v)
     }
   })
