@@ -9,10 +9,11 @@ const toSnake = (str: string) => str
 const extendRoutes = (routes: any[]) => {
   const new_routes = [] as any[]
   routes.forEach(v => {
-    if (v.name.indexOf('@') < 0 || v.name.indexOf('-@pages') > -1) {
-      v.name = toSnake(v.name)
+    if (v.path.indexOf('@') < 0 || v.path.indexOf('@pages') > -1) {
       v.path = toSnake(v.path)
       v.chunkName = toSnake(v.chunkName)
+      if (v.name) v.name = toSnake(v.name)
+      if (v.children) v.children = extendRoutes(v.children)
       new_routes.push(v)
     }
   })

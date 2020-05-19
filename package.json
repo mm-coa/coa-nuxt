@@ -1,10 +1,11 @@
 {
   "name": "site-nuxt-core",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "license": "MIT",
   "scripts": {
     "dev": "tsc-watch",
-    "build": "rm -rf dist* && tsc"
+    "build": "rm -rf dist* && tsc && cp package.json dist",
+    "npm-publish": "yarn build && yarn version --patch && cp package.json dist && cd dist && npm publish"
   },
   "dependencies": {
     "@nuxt/typescript-runtime": "^0.4.6",
