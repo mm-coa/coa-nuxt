@@ -21,7 +21,9 @@ export class Stat {
       return
 
     // 加入队列
-    this.queue.push({ ...raw, event })
+    raw.event = event
+    this.onTrack(raw)
+    this.queue.push(raw)
 
     // 只保留最新100条
     if (this.queue.length > 100) {
@@ -39,7 +41,11 @@ export class Stat {
     }, 1e3)
   }
 
-  protected handleRaw (raw: Dic<string>) {
+  protected onUpload (raw: Dic<string>) {
+
+  }
+
+  protected onTrack (raw: Dic<string>) {
 
   }
 
@@ -52,7 +58,7 @@ export class Stat {
     if (logs.length < 1)
       return
 
-    logs.forEach(v => this.handleRaw(v))
+    logs.forEach(v => this.onUpload(v))
 
     const data = { '__logs__': logs }
     const headers = { 'x-log-apiversion': '0.6.0', 'x-log-bodyrawsize': JSON.stringify(data).length }
