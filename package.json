@@ -1,6 +1,6 @@
 {
   "name": "site-nuxt-core",
-  "version": "1.0.25",
+  "version": "1.0.27",
   "license": "MIT",
   "scripts": {
     "dev": "tsc -w",
@@ -8,15 +8,16 @@
     "npm-publish": "yarn build && yarn version --patch && cp package.json dist && cd dist && npm publish"
   },
   "dependencies": {
-    "@nuxt/typescript-runtime": "^0.4.10",
+    "@nuxt/types": "^2.13.3",
+    "@nuxt/typescript-runtime": "^1.0.0",
     "@nuxtjs/axios": "^5.11.0",
-    "@types/lodash": "^4.14.155",
-    "dayjs": "^1.8.28",
-    "lodash": "^4.17.15",
-    "nuxt": "^2.12.2",
+    "@types/lodash": "^4.14.157",
+    "dayjs": "^1.8.29",
+    "lodash": "^4.17.19",
+    "nuxt": "^2.13.3",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.6"
   }
 }
