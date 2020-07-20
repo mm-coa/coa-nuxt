@@ -45,6 +45,7 @@ export default function (config: Configuration) {
     },
     buildDir: 'dist-nuxt',
     build: {
+      hardSource: true,
       publicPath: '/rd/',
     },
     render: {
