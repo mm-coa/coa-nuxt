@@ -20,6 +20,8 @@ const extendRoutes = (routes: any[]) => {
   return new_routes
 }
 
+const isProd = process.env.NODE_ENV === 'production'
+
 export default function (config: Configuration) {
 
   const base = config.router?.base || '/'
@@ -45,7 +47,7 @@ export default function (config: Configuration) {
     },
     buildDir: 'dist-nuxt',
     build: {
-      hardSource: true,
+      hardSource: !isProd,
       publicPath: '/rd/',
     },
     render: {
