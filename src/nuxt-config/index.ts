@@ -70,6 +70,11 @@ export default function (config: Configuration) {
       color: '#000',
       background: '#eee'
     },
+    axios: {
+      browserBaseURL: '/',
+      proxy: !isProd,
+      progress: false,
+    },
   }
 
   // 扩展默认配置

@@ -1,6 +1,6 @@
 {
   "name": "coa-nuxt",
-  "version": "1.0.29",
+  "version": "1.0.30",
   "license": "MIT",
   "scripts": {
     "dev": "tsc -w",
@@ -12,7 +12,7 @@
     "@nuxt/typescript-runtime": "^1.0.0",
     "@nuxtjs/axios": "^5.12.0",
     "@types/lodash": "^4.14.158",
-    "dayjs": "^1.8.30",
+    "dayjs": "^1.8.31",
     "lodash": "^4.17.19",
     "nuxt": "^2.14.0",
     "tslib": "^2.0.0"
