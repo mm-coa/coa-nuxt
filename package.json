@@ -1,11 +1,12 @@
 {
   "name": "coa-nuxt",
-  "version": "1.0.30",
+  "version": "1.0.33",
   "license": "MIT",
   "scripts": {
     "dev": "tsc -w",
     "build": "rm -rf dist* && tsc && cp package.json dist",
-    "npm-publish": "yarn build && yarn version --patch && cp package.json dist && cd dist && npm publish"
+    "npm-publish": "yarn build && yarn version --patch && cp package.json dist && cd dist && npm publish",
+    "cnpm-sync": "cnpm sync"
   },
   "dependencies": {
     "@nuxt/types": "^2.14.0",

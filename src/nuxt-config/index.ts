@@ -24,7 +24,10 @@ const isProd = process.env.NODE_ENV === 'production'
 
 export default function (config: Configuration) {
 
-  const base = config.router?.base || '/'
+  // 强行覆盖base
+  if (config.router.base) {
+    config.router.base = `/${config.router?.base || ''}/`.replace(/\/+/, '/')
+  }
 
   // 默认配置
   const default_config: Configuration = {
@@ -39,11 +42,10 @@ export default function (config: Configuration) {
       static: 'static'
     },
     router: {
-      base,
       extendRoutes
     },
     generate: {
-      dir: 'dist' + base
+      dir: 'dist'
     },
     buildDir: 'dist-nuxt',
     build: {
