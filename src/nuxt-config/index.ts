@@ -26,7 +26,7 @@ export default function (config: Configuration) {
 
   // 强行覆盖base
   if (config.router.base) {
-    config.router.base = `/${config.router?.base || ''}/`.replace(/\/+/, '/')
+    config.router.base = `/${config.router?.base || ''}/`.replace(/\/+/g, '/')
   }
 
   // 默认配置
