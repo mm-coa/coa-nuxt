@@ -31,6 +31,8 @@ export default function (config: Configuration) {
 
   // 默认配置
   const default_config: Configuration = {
+    ssr: false,
+    target: 'static',
     globalName: 'site',
     dir: {
       app: 'app/app',
