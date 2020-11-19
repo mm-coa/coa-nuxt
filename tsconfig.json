@@ -17,7 +17,6 @@
     ],
     "sourceMap": true,
     "declaration": true,
-    "importHelpers": true,
     "removeComments": true
   },
   "include": [

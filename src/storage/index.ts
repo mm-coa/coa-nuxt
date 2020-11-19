@@ -40,6 +40,18 @@ export default new class {
     clear () {
       localStorage.clear()
     }
+
+    async warp<T> (id: string, worker: () => Promise<T>, ms?: number) {
+
+      let result = this.get(id)
+
+      if (result === undefined) {
+        result = await worker()
+        this.set(id, result, ms)
+      }
+      return result
+    }
+
   }
   readonly session = new class {
 
@@ -73,6 +85,18 @@ export default new class {
     clear () {
       sessionStorage.clear()
     }
+
+    async warp<T> (id: string, worker: () => Promise<T>, ms?: number) {
+
+      let result = this.get(id)
+
+      if (result === undefined) {
+        result = await worker()
+        this.set(id, result, ms)
+      }
+      return result
+    }
+
   }
 
 }
