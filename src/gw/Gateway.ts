@@ -1,4 +1,4 @@
-import { _, Dic, time } from '..'
+import { _, Dic, storage, time } from '..'
 import { $axios } from '../app'
 
 export namespace Gateway {
@@ -62,18 +62,18 @@ export class Gateway {
 
 }
 
-function handleStorage (storage: any) {
-  storage.local && _.forEach(storage.local, (item, key) => {
-    const { action, value = null, ms = 0 } = item
+function handleStorage (storageData: any) {
+  storageData.local && _.forEach(storageData.local, (item, key) => {
+    const { action, data = null, ms = 0 } = item
     if (action === 'set')
-      storage.local.set(key, value, ms < 1 ? time.forever : ms)
+      storage.local.set(key, data, ms < 1 ? time.forever : ms)
     else if (action === 'remove')
       storage.local.remove(key)
   })
-  storage.session && _.forEach(storage.session, (item, key) => {
-    const { action, value = null, ms = 0 } = item
+  storageData.session && _.forEach(storageData.session, (item, key) => {
+    const { action, data = null, ms = 0 } = item
     if (action === 'set')
-      storage.session.set(key, value, ms < 1 ? time.forever : ms)
+      storage.session.set(key, data, ms < 1 ? time.forever : ms)
     else if (action === 'remove')
       storage.session.remove(key)
   })
