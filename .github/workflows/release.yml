@@ -32,3 +32,8 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.AEX_NPM_TOKEN }}
         run: |
           yarn publish dist
+
+      - name: Sync
+        run: |
+          sleep 5s
+          yarn sync

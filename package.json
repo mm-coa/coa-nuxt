@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "tsc -w",
     "build": "rm -rf dist* && tsc && cp package.json *.md dist",
-    "prettier": "prettier -w ."
+    "prettier": "prettier -w .",
+    "sync": "curl -X PUT 'https://npm.taobao.org/sync/coa-nuxt?sync_upstream=true'"
   },
   "dependencies": {
     "@nuxt/types": "^2.15.6",
