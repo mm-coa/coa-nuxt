@@ -1,3 +1,3 @@
 export interface Dic<T> {
-  [index: string]: T;
+  [index: string]: T
 }

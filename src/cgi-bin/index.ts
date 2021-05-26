@@ -15,29 +15,28 @@ const default_option = {
 
 // 基础工具
 export class CgiBin {
-
-  async get<T = any> (url: string, params: Params = {}, option: Option = {}) {
+  async get<T = any>(url: string, params: Params = {}, option: Option = {}) {
     return await this.request<T>('get', url, params, {}, option, {})
   }
 
-  async get_body<T = any> (url: string, params: Params = {}, option: Option = {}) {
+  async get_body<T = any>(url: string, params: Params = {}, option: Option = {}) {
     const data = await this.get<T>(url, params, option)
     return data.body
   }
 
-  async post<T = any> (url: string, data: Data = {}, option: Option = {}) {
+  async post<T = any>(url: string, data: Data = {}, option: Option = {}) {
     return this.request<T>('post', url, {}, data, option)
   }
 
-  async put<T = any> (url: string, data: Data = {}, option: Option = {}) {
+  async put<T = any>(url: string, data: Data = {}, option: Option = {}) {
     return this.request<T>('put', url, {}, data, option)
   }
 
-  async del<T = any> (url: string, data: Data = {}, option: Option = {}) {
+  async del<T = any>(url: string, data: Data = {}, option: Option = {}) {
     return this.request<T>('delete', url, {}, data, option)
   }
 
-  async request<T = any> (method: Methods, url: string, params: Params = {}, data: Data = {}, option: Option = {}, headers: Headers = {}) {
+  async request<T = any>(method: Methods, url: string, params: Params = {}, data: Data = {}, option: Option = {}, headers: Headers = {}) {
     _.defaults(option, default_option)
     this.handleHeaders(headers)
     const raw = await $axios({ url, params, data, method, headers })
@@ -45,17 +44,16 @@ export class CgiBin {
   }
 
   // 错误弹框提示
-  protected toastError (message: string): void {}
+  protected toastError(message: string): void {}
 
   // 用户授权信息过期时，需要重新登录
-  protected handle401 (): void {}
+  protected handle401(): void {}
 
   // 处理头部数据
-  protected handleHeaders (headers: Headers): void { }
+  protected handleHeaders(headers: Headers): void {}
 
   // 处理响应数据
-  private handleResponse<T> ({ data, status }: any, option: Option) {
-
+  private handleResponse<T>({ data, status }: any, option: Option) {
     if (status !== 200) {
       data = { code: 500, message: '网络异常' }
     }
@@ -73,16 +71,12 @@ export class CgiBin {
 
     // 处理非正常响应状态
     if (code === 400 || code === 500) {
-      if (option.toastError)
-        this.toastError(message)
+      if (option.toastError) this.toastError(message)
     } else if (code === 401) {
-      if (option.checkAuth)
-        this.handle401()
+      if (option.checkAuth) this.handle401()
     }
 
     // 返回完整数据
-    return { code, mark, body, message } as { code: number, mark: string | number, body: T, message: string }
+    return { code, mark, body, message } as { code: number; mark: string | number; body: T; message: string }
   }
-
 }
-

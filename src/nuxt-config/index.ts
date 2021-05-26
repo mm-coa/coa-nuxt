@@ -1,14 +1,15 @@
-import { Configuration } from '@nuxt/types'
+import { NuxtConfig } from '@nuxt/types'
 import { defaultsDeep } from 'lodash'
 
-const toSnake = (str: string) => str
-  .replace(/[-\/]@pages/g, '')
-  .replace(/([^-:\/A-Z])([A-Z])/g, '$1_$2')
-  .toLowerCase()
+const toSnake = (str: string) =>
+  str
+    .replace(/[-\/]@pages/g, '')
+    .replace(/([^-:\/A-Z])([A-Z])/g, '$1_$2')
+    .toLowerCase()
 
 const extendRoutes = (routes: any[]) => {
   const new_routes = [] as any[]
-  routes.forEach(v => {
+  routes.forEach((v) => {
     if (v.path.indexOf('@') < 0 || v.path.indexOf('@pages') > -1) {
       v.path = toSnake(v.path)
       v.chunkName = toSnake(v.chunkName)
@@ -22,15 +23,14 @@ const extendRoutes = (routes: any[]) => {
 
 const isProd = process.env.NODE_ENV === 'production'
 
-export default function (config: Configuration) {
-
+export default function (config: NuxtConfig) {
   // 强行覆盖base
-  if (config.router.base) {
-    config.router.base = `/${config.router?.base || ''}/`.replace(/\/+/g, '/')
+  if (config.router?.base) {
+    config.router.base = `/${config.router.base || ''}/`.replace(/\/+/g, '/')
   }
 
   // 默认配置
-  const default_config: Configuration = {
+  const default_config: NuxtConfig = {
     ssr: false,
     target: 'static',
     globalName: 'site',
@@ -41,13 +41,13 @@ export default function (config: Configuration) {
       middleware: 'app/middleware',
       store: 'app/store',
       pages: 'apps',
-      static: 'static'
+      static: 'static',
     },
     router: {
-      extendRoutes
+      extendRoutes,
     },
     generate: {
-      dir: 'dist'
+      dir: 'dist',
     },
     buildDir: 'dist-nuxt',
     build: {
@@ -55,15 +55,15 @@ export default function (config: Configuration) {
       publicPath: '/rd/',
     },
     render: {
-      resourceHints: false
+      resourceHints: false,
     },
     loaders: {
       ts: {
-        silent: true
+        silent: true,
       },
       tsx: {
-        silent: true
-      }
+        silent: true,
+      },
     },
     loading: {
       color: '#000',
@@ -72,7 +72,7 @@ export default function (config: Configuration) {
     loadingIndicator: {
       name: 'wandering-cubes',
       color: '#000',
-      background: '#eee'
+      background: '#eee',
     },
     axios: {
       browserBaseURL: '/',

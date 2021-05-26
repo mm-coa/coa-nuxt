@@ -1,8 +1,7 @@
 import { storage, time } from '..'
 
-export default new class {
-
-  handleStorageLocal (state: any[]) {
+export default new (class {
+  handleStorageLocal(state: any[]) {
     for (let item of state) {
       const [type, key = '', value = null, ms = 0] = item
       if (type === 'set') {
@@ -13,7 +12,7 @@ export default new class {
     }
   }
 
-  handleStorageSession (state: any[]) {
+  handleStorageSession(state: any[]) {
     for (let item of state) {
       const [type, key = '', value = null, ms = 0] = item
       if (type === 'set') {
@@ -23,4 +22,4 @@ export default new class {
       }
     }
   }
-}
+})()

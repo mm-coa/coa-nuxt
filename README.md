@@ -5,7 +5,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/coa-nuxt.svg?style=flat-square)](http://npm-stat.com/charts.html?package=coa-nuxt)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/coajs/coa-nuxt/pulls)
 
-一个基于Nuxt的前端集成框架，包含了Nuxt基本框架、常用方法、必要的第三方类库
+一个基于 Nuxt 的前端集成框架，包含了 Nuxt 基本框架、常用方法、必要的第三方类库
 
 ## 使用说明
 
@@ -49,7 +49,7 @@ storage.session.get('key2')
 
 #### time 时间
 
-time包含了一些常用时间常量，单位为毫秒
+time 包含了一些常用时间常量，单位为毫秒
 
 ```typescript
 import { time } from 'coa-nuxt'
@@ -111,5 +111,4 @@ import { lodash } from 'coa-nuxt'
 
 // lodash 存在别名 _ ，也可以直接导入
 import { _ } from 'coa-nuxt'
-
 ```

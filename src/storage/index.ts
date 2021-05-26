@@ -2,15 +2,13 @@ import { snakeCase } from 'lodash'
 import { time } from '..'
 import config from '../config'
 
-function id2key (id: string) {
+function id2key(id: string) {
   return config.name + '_' + snakeCase(id)
 }
 
-export default new class {
-
-  readonly local = new class {
-
-    get<T = any> (id: string) {
+export default new (class {
+  readonly local = new (class {
+    get<T = any>(id: string) {
       try {
         const key = id2key(id)
         const dataString = localStorage.getItem(key) || '[0]'
@@ -25,24 +23,23 @@ export default new class {
       }
     }
 
-    set (id: string, value: any, ms = time.oneMonth) {
+    set(id: string, value: any, ms = time.oneMonth) {
       const key = id2key(id)
       const data = [Date.now() + ms, value]
       const dataString = JSON.stringify(data)
       localStorage.setItem(key, dataString)
     }
 
-    remove (id: string) {
+    remove(id: string) {
       const key = id2key(id)
       localStorage.removeItem(key)
     }
 
-    clear () {
+    clear() {
       localStorage.clear()
     }
 
-    async warp<T> (id: string, worker: () => Promise<T>, ms?: number) {
-
+    async warp<T>(id: string, worker: () => Promise<T>, ms?: number) {
       let result = this.get(id)
 
       if (result === undefined) {
@@ -51,11 +48,9 @@ export default new class {
       }
       return result
     }
-
-  }
-  readonly session = new class {
-
-    get<T = any> (id: string) {
+  })()
+  readonly session = new (class {
+    get<T = any>(id: string) {
       try {
         const key = id2key(id)
         const dataString = sessionStorage.getItem(key) || '[0]'
@@ -70,24 +65,23 @@ export default new class {
       }
     }
 
-    set (id: string, value: any, ms = time.oneWeek) {
+    set(id: string, value: any, ms = time.oneWeek) {
       const key = id2key(id)
       const data = [Date.now() + ms, value]
       const dataString = JSON.stringify(data)
       sessionStorage.setItem(key, dataString)
     }
 
-    remove (id: string) {
+    remove(id: string) {
       const key = id2key(id)
       sessionStorage.removeItem(key)
     }
 
-    clear () {
+    clear() {
       sessionStorage.clear()
     }
 
-    async warp<T> (id: string, worker: () => Promise<T>, ms?: number) {
-
+    async warp<T>(id: string, worker: () => Promise<T>, ms?: number) {
       let result = this.get(id)
 
       if (result === undefined) {
@@ -96,7 +90,5 @@ export default new class {
       }
       return result
     }
-
-  }
-
-}
+  })()
+})()

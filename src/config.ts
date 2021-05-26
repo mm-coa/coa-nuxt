@@ -1,8 +1,7 @@
-export default new class {
-
+export default new (class {
   name = 'web'
 
-  set (config: { name: string }) {
+  set(config: { name: string }) {
     this.name = config.name || this.name
   }
-}
+})()
