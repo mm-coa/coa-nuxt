@@ -1,13 +1,22 @@
 import { time } from '..'
-import config from '../config'
 
-const toSnake = (str: string) => str.replace(/([^-:\/A-Z])([A-Z])/g, '$1_$2').toLowerCase()
+const config = { prefix: 'web' }
+
+const toSnake = (str: string) =>
+  str
+    .replace(/([^A-Z])([A-Z])/g, '$1_$2')
+    .replace(/[^A-Z0-9]+/gi, '_')
+    .toLowerCase()
 
 function id2key(id: string) {
-  return config.name + '_' + toSnake(id)
+  return config.prefix + '_' + toSnake(id)
 }
 
 export class Storage {
+  setPrefix(prefix: string) {
+    config.prefix = prefix || config.prefix
+  }
+
   readonly local = new (class {
     get<T = any>(id: string) {
       try {
