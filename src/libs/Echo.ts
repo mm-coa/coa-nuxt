@@ -1,4 +1,4 @@
-export default new (class {
+export class Echo {
   log(message?: any, ...optionalParams: any[]) {
     console.log(message, ...optionalParams)
   }
@@ -7,4 +7,4 @@ export default new (class {
     console.error(message, ...optionalParams)
     throw new Error(message)
   }
-})()
+}

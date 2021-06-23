@@ -8,4 +8,5 @@ const oneYear = 365 * oneDay
 const oneCentury = 100 * oneYear
 const forever = 100 * oneCentury
 
-export default { oneSecond, oneMinute, oneHour, oneDay, oneWeek, oneMonth, oneYear, oneCentury, forever }
+const time = { oneSecond, oneMinute, oneHour, oneDay, oneWeek, oneMonth, oneYear, oneCentury, forever }
+export { time }

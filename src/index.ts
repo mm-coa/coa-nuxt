@@ -1,12 +1,18 @@
 import * as dayjs from 'dayjs'
 import * as _ from 'lodash'
+import { Die } from './libs/Die'
+import { Echo } from './libs/Echo'
 
+export { CgiBin } from './libs/CgiBin'
+export { CoaNuxt } from './libs/CoaNuxt'
+export { Die } from './libs/Die'
+export { Gateway } from './libs/Gateway'
+export { Stat } from './libs/Stat'
+export { Storage } from './libs/Storage'
+export { time } from './tools/time'
 export * from './typing'
 export { _, dayjs }
-export { CgiBin } from './cgi-bin'
-export { Gateway } from './gw/Gateway'
-export { Stat } from './stat'
-export { default as die } from './die'
-export { default as echo } from './echo'
-export { default as time } from './time'
-export { default as storage } from './storage'
+
+export const die = new Die()
+export const echo = new Echo()
+export const storage = new Storage()

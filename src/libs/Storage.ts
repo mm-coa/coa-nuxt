@@ -1,12 +1,13 @@
-import { snakeCase } from 'lodash'
 import { time } from '..'
 import config from '../config'
 
+const toSnake = (str: string) => str.replace(/([^-:\/A-Z])([A-Z])/g, '$1_$2').toLowerCase()
+
 function id2key(id: string) {
-  return config.name + '_' + snakeCase(id)
+  return config.name + '_' + toSnake(id)
 }
 
-export default new (class {
+export class Storage {
   readonly local = new (class {
     get<T = any>(id: string) {
       try {
@@ -91,4 +92,4 @@ export default new (class {
       return result
     }
   })()
-})()
+}
