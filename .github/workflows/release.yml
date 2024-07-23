@@ -9,8 +9,6 @@ jobs:
   publish-npm:
     name: NPM Publish
 
-    if: github.repository_owner == 'coajs'
-
     runs-on: ubuntu-latest
 
     steps:
