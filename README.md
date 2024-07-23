@@ -1,4 +1,4 @@
-# coa-nuxt
+# mm-coa-nuxt
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](LICENSE)
 [![npm version](https://img.shields.io/npm/v/coa-nuxt.svg?style=flat-square)](https://www.npmjs.org/package/coa-nuxt)
@@ -12,7 +12,7 @@
 ### 安装
 
 ```shell
-yarn add coa-nuxt
+yarn add mm-coa-nuxt
 ```
 
 ### 框架
@@ -34,7 +34,7 @@ yarn add coa-nuxt
 #### storage 储存
 
 ```typescript
-import { storage } from 'coa-nuxt'
+import { storage } from 'mm-coa-nuxt'
 
 // 设置本地储存
 storage.local.set('key1', { info: 'value1' }, 10 * 60 * 1000 /*10分钟有效期*/)
@@ -52,7 +52,7 @@ storage.session.get('key2')
 time 包含了一些常用时间常量，单位为毫秒
 
 ```typescript
-import { time } from 'coa-nuxt'
+import { time } from 'mm-coa-nuxt'
 
 // 1秒钟 1000
 time.oneSecond
@@ -77,7 +77,7 @@ time.forever
 #### echo 输出
 
 ```typescript
-import { echo } from 'coa-nuxt'
+import { echo } from 'mm-coa-nuxt'
 
 // 输出一个信息
 echo.log('this is message')
@@ -89,7 +89,7 @@ echo.error('this is message with error')
 #### die 终止
 
 ```typescript
-import { die } from 'coa-nuxt'
+import { die } from 'mm-coa-nuxt'
 
 // 终止代码运行并给出提示信息
 die.hint('error message')
@@ -104,11 +104,11 @@ die.hint('error message')
 
 ```typescript
 // 获取 dayjs 对象，dayjs的使用详见 https://day.js.org/zh-CN
-import { dayjs } from 'coa-nuxt'
+import { dayjs } from 'mm-coa-nuxt'
 
 // 获取 lodash 对象，lodash的使用详见 https://lodash.com
-import { lodash } from 'coa-nuxt'
+import { lodash } from 'mm-coa-nuxt'
 
 // lodash 存在别名 _ ，也可以直接导入
-import { _ } from 'coa-nuxt'
+import { _ } from 'mm-coa-nuxt'
 ```
