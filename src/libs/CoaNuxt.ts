@@ -1,33 +1,11 @@
 import { defaultsDeep } from 'lodash'
+import type { NuxtConfig } from 'nuxt/schema'
+import type { NitroConfig } from 'nitropack/types'
 
 declare const process: { env: { NODE_ENV?: string } }
 
-export type NuxtConfig = {
-  [key: string]: any
-  app?: {
-    baseURL?: string
-    buildAssetsDir?: string
-    [key: string]: any
-  }
-  dir?: {
-    assets?: string
-    layouts?: string
-    middleware?: string
-    pages?: string
-    public?: string
-    [key: string]: any
-  }
-  hooks?: {
-    [key: string]: any
-    'pages:extend'?: (routes: any[]) => void
-  }
-  typescript?: {
-    tsConfig?: {
-      include?: string[]
-      [key: string]: any
-    }
-    [key: string]: any
-  }
+export type CoaNuxtConfig = NuxtConfig & {
+  nitro?: NitroConfig
 }
 
 const toSnake = (str: string) =>
@@ -60,14 +38,14 @@ const defaultBuildAssetsDir = () => (process.env.NODE_ENV === 'production' ? '/r
 
 export class CoaNuxt {
   // 设置配置
-  static config(config: NuxtConfig) {
+  static config(config: CoaNuxtConfig) {
     // 强行覆盖base
     if (config.app?.baseURL) {
       config.app.baseURL = `/${config.app.baseURL || ''}/`.replace(/\/+/g, '/')
     }
 
     // 默认配置
-    const default_config: NuxtConfig = {
+    const default_config: CoaNuxtConfig = {
       ssr: false,
       app: {
         baseURL: '/',
@@ -93,7 +71,8 @@ export class CoaNuxt {
       },
       nitro: {
         output: {
-          dir: 'dist',
+          dir: '.output',
+          publicDir: 'dist',
         },
       },
     }
