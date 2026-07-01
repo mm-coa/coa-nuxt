@@ -19,15 +19,15 @@
     "sync": "curl -X PUT 'https://registry.npmmirror.com/mm-coa-nuxt/sync?publish=false&nodeps=false'"
   },
   "dependencies": {
-    "nuxt": "4.4.8",
     "@types/lodash": "^4.17.24",
     "dayjs": "^1.11.21",
     "lodash": "^4.18.1"
   },
   "peerDependencies": {
-    "nuxt": "^4.0.0"
+    "nuxt": "4.4.8"
   },
   "devDependencies": {
+    "nuxt": "4.4.8",
     "prettier": "^3.9.4",
     "typescript": "^5.9.3"
   }
