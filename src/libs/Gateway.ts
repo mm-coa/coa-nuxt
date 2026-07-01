@@ -17,7 +17,7 @@ export class Gateway {
     url: string,
     param: Gateway.Param = {},
     option: Gateway.Option = {},
-    header: Gateway.Header = {}
+    header: Gateway.Header = {},
   ) {
     let result = { error: { retry: true } } as Gateway.Result<T>,
       retryTimes = 0

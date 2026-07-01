@@ -1,5 +1,34 @@
-import { NuxtConfig } from '@nuxt/types'
 import { defaultsDeep } from 'lodash'
+
+declare const process: { env: { NODE_ENV?: string } }
+
+export type NuxtConfig = {
+  [key: string]: any
+  app?: {
+    baseURL?: string
+    buildAssetsDir?: string
+    [key: string]: any
+  }
+  dir?: {
+    assets?: string
+    layouts?: string
+    middleware?: string
+    pages?: string
+    public?: string
+    [key: string]: any
+  }
+  hooks?: {
+    [key: string]: any
+    'pages:extend'?: (routes: any[]) => void
+  }
+  typescript?: {
+    tsConfig?: {
+      include?: string[]
+      [key: string]: any
+    }
+    [key: string]: any
+  }
+}
 
 const toSnake = (str: string) =>
   str
@@ -8,78 +37,64 @@ const toSnake = (str: string) =>
     .toLowerCase()
 
 const extendRoutes = (routes: any[]) => {
-  const new_routes = [] as any[]
-  routes.forEach((v) => {
-    if (v.path.indexOf('@') < 0 || v.path.indexOf('@pages') > -1) {
-      v.path = toSnake(v.path)
-      v.chunkName = toSnake(v.chunkName)
-      if (v.name) v.name = toSnake(v.name)
-      if (v.children) v.children = extendRoutes(v.children)
-      new_routes.push(v)
+  for (const route of [...routes]) {
+    if (route.path.indexOf('@') >= 0 && route.path.indexOf('@pages') < 0) {
+      routes.splice(routes.indexOf(route), 1)
+      continue
     }
-  })
-  return new_routes
+
+    route.path = toSnake(route.path)
+    if (route.name) route.name = toSnake(String(route.name))
+    if (route.children) extendRoutes(route.children)
+  }
 }
 
-const isProd = process.env.NODE_ENV === 'production'
+const includeAppPageTypes = ({ tsConfig }: { tsConfig: { include?: string[] } }) => {
+  tsConfig.include ||= []
+  if (!tsConfig.include.includes('../apps/**/*')) {
+    tsConfig.include.push('../apps/**/*')
+  }
+}
+
+const defaultBuildAssetsDir = () => (process.env.NODE_ENV === 'production' ? '/rd/' : '/_nuxt/')
 
 export class CoaNuxt {
   // 设置配置
   static config(config: NuxtConfig) {
     // 强行覆盖base
-    if (config.router?.base) {
-      config.router.base = `/${config.router.base || ''}/`.replace(/\/+/g, '/')
+    if (config.app?.baseURL) {
+      config.app.baseURL = `/${config.app.baseURL || ''}/`.replace(/\/+/g, '/')
     }
 
     // 默认配置
     const default_config: NuxtConfig = {
       ssr: false,
-      target: 'static',
-      globalName: 'site',
+      app: {
+        baseURL: '/',
+        buildAssetsDir: defaultBuildAssetsDir(),
+      },
       dir: {
-        app: 'app/app',
-        assets: 'app/assets',
-        layouts: 'app/layouts',
-        middleware: 'app/middleware',
-        store: 'app/store',
-        pages: 'apps',
-        static: 'static',
+        assets: 'assets',
+        layouts: 'layouts',
+        middleware: 'middleware',
+        pages: '../apps',
+        plugins: 'plugins',
+        public: 'static',
       },
-      router: {
-        extendRoutes,
-      },
-      generate: {
-        dir: 'dist',
-      },
-      buildDir: 'dist-nuxt',
-      build: {
-        hardSource: !isProd,
-        publicPath: '/rd/',
-      },
-      render: {
-        resourceHints: false,
-      },
-      loaders: {
-        ts: {
-          silent: true,
-        },
-        tsx: {
-          silent: true,
+      buildDir: '.nuxt',
+      typescript: {
+        tsConfig: {
+          include: ['../apps/**/*', '../typings.ts'],
         },
       },
-      loading: {
-        color: '#000',
-        continuous: true,
+      hooks: {
+        'pages:extend': extendRoutes,
+        'prepare:types': includeAppPageTypes,
       },
-      loadingIndicator: {
-        name: 'wandering-cubes',
-        color: '#000',
-        background: '#eee',
-      },
-      axios: {
-        browserBaseURL: '/',
-        proxy: !isProd,
-        progress: false,
+      nitro: {
+        output: {
+          dir: 'dist',
+        },
       },
     }
 
