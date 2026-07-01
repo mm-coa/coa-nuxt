@@ -1,5 +1,5 @@
-import * as dayjs from 'dayjs'
-import * as _ from 'lodash'
+import dayjs = require('dayjs')
+import _ = require('lodash')
 import { Die } from './libs/Die'
 import { Echo } from './libs/Echo'
 import { Storage } from './libs/Storage'
